@@ -1,5 +1,6 @@
+'use client'  
 import { LottieAnimation } from './LottieAnimation'
-
+import AnimationHero from '../public/animations/Animation_Hero.json'
 export function Hero() {
   return (
     <section className="bg-gradient-to-r from-[#fe9800] to-yellow-500 text-white py-20">
@@ -7,7 +8,7 @@ export function Hero() {
         <h1 className="text-4xl font-bold mb-4">Bienvenido a Ape</h1>
         <div className="w-64 h-64 mx-auto mb-8">
           <LottieAnimation 
-            src="https://lottie.host/ad5dc94e-2044-4ff9-81cb-310b16a0d9b6/RdCv384hct.json"
+            src={AnimationHero}
           />
         </div>
         <p className="text-xl mb-8">Tu aliado en el mundo financiero</p>
