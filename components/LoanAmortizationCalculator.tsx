@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
@@ -37,6 +37,7 @@ export function LoanAmortizationCalculator() {
   const [totalPayment, setTotalPayment] = useState<number>(0)
 
   const calculateAmortization = () => {
+    
     const principal = parseFloat(amount)
     const rate = parseFloat(interestRate) / 100 / 12
     const periods = parseInt(months)
@@ -58,6 +59,16 @@ export function LoanAmortizationCalculator() {
     setTable(calculatedTable)
     updateTotals(calculatedTable)
   }
+  
+  const memoizedCalculateAmortization = React.useCallback(calculateAmortization, [
+    type, amount, months, interestRate
+  ])
+
+  useEffect(() => {
+    memoizedCalculateAmortization()
+  }, [memoizedCalculateAmortization])
+
+  
 
   const calcularAmortizacionFrancesa = (principal: number, rate: number, periods: number): AmortizationRow[] => {
     const cuota = principal * (rate * Math.pow(1 + rate, periods)) / (Math.pow(1 + rate, periods) - 1)
@@ -128,7 +139,7 @@ export function LoanAmortizationCalculator() {
     const updatedTable = table.map((row, index) => {
       if (index < periodo - 1) return row;
 
-      let newRow = { ...row };
+      const newRow = { ...row };
       if (index === periodo - 1) {
         newRow.aporte = aporte;
       }
@@ -214,7 +225,7 @@ export function LoanAmortizationCalculator() {
         </div>
       </div>
 
-      <Button onClick={calculateAmortization} className="w-full">
+      <Button onClick={memoizedCalculateAmortization} className="w-full">
         Calcular Amortización
       </Button>
 

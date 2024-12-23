@@ -3,7 +3,7 @@
 import { Player } from '@lottiefiles/react-lottie-player'
 
 interface LottieAnimationProps {
-  src: any
+  src: string | object
   className?: string
 }
 

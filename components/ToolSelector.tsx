@@ -19,7 +19,13 @@ export function ToolSelector() {
         <h2 className="text-3xl font-bold text-center mb-10">Nuestras Herramientas</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {tools.map((tool) => (
-            <Card key={tool.id} className="hover:shadow-lg transition-shadow duration-300">
+            <Card 
+              key={tool.id} 
+              className={`hover:shadow-lg transition-shadow duration-300 ${
+                selectedTool === tool.id ? 'border-2 border-yellow-600' : ''
+              }`}
+              onClick={() => setSelectedTool(tool.id)}
+            >
               <CardHeader>
                 <CardTitle>{tool.name}</CardTitle>
                 <CardDescription>Haga clic para seleccionar esta herramienta</CardDescription>
@@ -47,4 +53,3 @@ export function ToolSelector() {
     </section>
   )
 }
-
