@@ -59,16 +59,13 @@ export function LoanAmortizationCalculator() {
     setTable(calculatedTable)
     updateTotals(calculatedTable)
   }
-  
   const memoizedCalculateAmortization = React.useCallback(calculateAmortization, [
     type, amount, months, interestRate
   ])
-
+  
   useEffect(() => {
     memoizedCalculateAmortization()
   }, [memoizedCalculateAmortization])
-
-  
 
   const calcularAmortizacionFrancesa = (principal: number, rate: number, periods: number): AmortizationRow[] => {
     const cuota = principal * (rate * Math.pow(1 + rate, periods)) / (Math.pow(1 + rate, periods) - 1)
