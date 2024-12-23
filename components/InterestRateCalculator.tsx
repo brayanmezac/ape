@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,43 +13,54 @@ const periodosAlAno = {
   bimestralVencido: 6,
   trimestralVencido: 4,
   semestralVencido: 2,
-  anualVencido: 1
-}
+  anualVencido: 1,
+} as const;
+
+type Periodo = keyof typeof periodosAlAno;
 
 export function InterestRateCalculator() {
-  const [rates, setRates] = useState<Record<string, string>>(() => 
-    Object.keys(periodosAlAno).reduce((acc, periodo) => ({...acc, [periodo]: ''}), {})
-  )
+  const [rates, setRates] = useState<Record<Periodo, string>>(() => 
+    Object.keys(periodosAlAno).reduce((acc, periodo) => ({ ...acc, [periodo]: '' }), {}) as Record<Periodo, string>
+  );
+  const [error, setError] = useState<string | null>(null);
 
-  const handleInputChange = (periodo: string, value: string) => {
-    const cleanedValue = value.replace(/[^0-9.]/g, '')
-    setRates(prev => ({ ...prev, [periodo]: cleanedValue }))
-  }
+  const handleInputChange = (periodo: Periodo, value: string) => {
+    const cleanedValue = value.replace(/[^0-9.]/g, '');
+    setRates(prev => ({ ...prev, [periodo]: cleanedValue }));
+  };
 
   const calculateRates = () => {
-    const periodoBase = Object.keys(rates).find(periodo => rates[periodo] !== '')
-    
+    const periodoBase = Object.keys(rates).find(periodo => rates[periodo as Periodo] !== '') as Periodo | undefined;
+
     if (!periodoBase) {
-      alert('Por favor, ingrese al menos una tasa')
-      return
+      setError('Por favor, ingrese al menos una tasa.');
+      return;
+    }
+    
+    const valorBase = parseFloat(rates[periodoBase]) / 100;
+
+    if (isNaN(valorBase) || valorBase <= 0) {
+      setError('Por favor, ingrese un valor válido mayor que 0.');
+      return;
     }
 
-    const valorBase = parseFloat(rates[periodoBase]) / 100
+    setError(null); // Clear any existing errors
 
-    const tasaEA = Math.pow((1 + valorBase), periodosAlAno[periodoBase as keyof typeof periodosAlAno]) - 1
+    const tasaEA = Math.pow((1 + valorBase), periodosAlAno[periodoBase]) - 1;
     
-    const tasasCalculadas: Record<string, string> = {}
+    const tasasCalculadas: Record<Periodo, string> = {} as Record<Periodo, string>;
     Object.entries(periodosAlAno).forEach(([periodo, periodos]) => {
-      const tasaCalculada = ((Math.pow((1 + tasaEA), (1 / periodos)) - 1) * 100)
-      tasasCalculadas[periodo] = tasaCalculada.toFixed(3)
-    })
+      const tasaCalculada = ((Math.pow((1 + tasaEA), (1 / periodos)) - 1) * 100);
+      tasasCalculadas[periodo as Periodo] = tasaCalculada.toFixed(3);
+    });
 
-    setRates(tasasCalculadas)
-  }
+    setRates(tasasCalculadas);
+  };
 
   const clearRates = () => {
-    setRates(Object.keys(periodosAlAno).reduce((acc, periodo) => ({...acc, [periodo]: ''}), {}))
-  }
+    setRates(Object.keys(periodosAlAno).reduce((acc, periodo) => ({ ...acc, [periodo]: '' }), {}) as Record<Periodo, string>);
+    setError(null);
+  };
 
   return (
     <div className="space-y-6">
@@ -59,13 +71,20 @@ export function InterestRateCalculator() {
             <Input
               id={periodo}
               type="text"
-              value={rates[periodo]}
-              onChange={(e) => handleInputChange(periodo, e.target.value)}
+              value={rates[periodo as Periodo]}
+              onChange={(e) => handleInputChange(periodo as Periodo, e.target.value)}
               placeholder={`Tasa ${periodo}`}
             />
           </div>
         ))}
       </div>
+
+      {error && (
+        <div className="text-red-500 text-sm">
+          {error}
+        </div>
+      )}
+
       <div className="flex space-x-2">
         <Button 
           onClick={calculateRates} 
@@ -86,16 +105,17 @@ export function InterestRateCalculator() {
       <div className="mt-6 w-full flex flex-col items-center">
         <TasaReferencia />
         <iframe 
-          src='https://tradingeconomics.com/embed/?s=corrrmin&v=202410311911V20230410&h=300&w=600&ref=/colombia/interest-rate&type=stepline&d1=2021-12-17&d2=2024-10-31' 
-          height='300' 
-          width='600'  
-          frameBorder='0' 
-          scrolling='no'
+          src="https://tradingeconomics.com/embed/?s=corrrmin&v=202410311911V20230410&h=300&w=600&ref=/colombia/interest-rate&type=stepline&d1=2021-12-17&d2=2024-10-31" 
+          height="300" 
+          width="600"  
+          frameBorder="0" 
+          scrolling="no"
+          loading="lazy"
           className="max-w-full"
         />
         <div className="text-center text-sm mt-2">
           Fuente: <a 
-            href='https://tradingeconomics.com/colombia/interest-rate' 
+            href="https://tradingeconomics.com/colombia/interest-rate" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="text-blue-600 hover:underline"
@@ -105,6 +125,5 @@ export function InterestRateCalculator() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
