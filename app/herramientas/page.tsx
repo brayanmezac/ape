@@ -1,5 +1,3 @@
-import { Header } from '../../components/Header'
-import { Footer } from '../../components/Footer'
 import { Breadcrumb } from '../../components/Breadcrumb'
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -17,7 +15,6 @@ const tools = [
 export default function ToolsPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
         <Breadcrumb items={[
           { label: 'Inicio', href: '/' },
@@ -44,7 +41,6 @@ export default function ToolsPage() {
           ))}
         </div>
       </main>
-      <Footer />
     </div>
   )
 }

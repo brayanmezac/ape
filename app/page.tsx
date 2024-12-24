@@ -1,15 +1,12 @@
 'use client'
 
-import { Header } from '../components/Header'
 import { Hero } from '../components/Hero'
 import { ToolSelector } from '../components/ToolSelector'
-import { Footer } from '../components/Footer'
 import { TeamSlider } from '../components/TeamSlider'
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <main className="flex-grow">
         <Hero />
         <ToolSelector />
@@ -33,7 +30,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   )
 }

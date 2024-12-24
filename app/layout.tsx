@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import React from 'react';
 import './globals.css'
+import { Header } from '../components/Header'
+import { Footer } from '../components/Footer'
 
 export const metadata: Metadata = {
   title: 'APE - Comunidad Financiera',
@@ -14,7 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   )
 }

@@ -1,12 +1,9 @@
-import { Header } from '../../../components/Header'
-import { Footer } from '../../../components/Footer'
 import { Breadcrumb } from '../../../components/Breadcrumb'
 import { InterestRateCalculator } from '../../../components/InterestRateCalculator'
 
 export default function ConversionPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
         <Breadcrumb items={[
           { label: 'Inicio', href: '/' },
@@ -16,7 +13,6 @@ export default function ConversionPage() {
         <h1 className="text-3xl font-bold mt-4 mb-8">Conversión de Tasas</h1>
         <InterestRateCalculator />
       </main>
-      <Footer />
     </div>
   )
 }
