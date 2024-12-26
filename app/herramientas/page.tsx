@@ -6,16 +6,12 @@ import { Button } from "@/components/ui/button"
 const tools = [
   { id: 'conversion', name: 'Conversión de Tasas' },
   { id: 'amortization', name: 'Amortización de Crédito' },
-  { id: 'tool3', name: 'Herramienta 3' },
-  { id: 'tool4', name: 'Herramienta 4' },
-  { id: 'tool5', name: 'Herramienta 5' },
-  { id: 'tool6', name: 'Herramienta 6' },
 ]
 
 export default function ToolsPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow container mx-auto px-22 py-8 sm:px-2">
         <Breadcrumb items={[
           { label: 'Inicio', href: '/' },
           { label: 'Herramientas', href: '/herramientas' },

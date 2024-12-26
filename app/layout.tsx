@@ -7,6 +7,9 @@ import { Footer } from '../components/Footer'
 export const metadata: Metadata = {
   title: 'APE - Comunidad Financiera',
   description: 'El zumbido de unas finanzas sanas',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({

@@ -4,7 +4,7 @@ import { LoanAmortizationCalculator } from '../../../components/LoanAmortization
 export default function AmortizationPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow container mx-auto px-22 py-8 sm:px-2">
         <Breadcrumb items={[
           { label: 'Inicio', href: '/' },
           { label: 'Herramientas', href: '/herramientas' },
