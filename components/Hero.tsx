@@ -3,7 +3,6 @@ import { LottieAnimation } from './LottieAnimation'
 import React, { useEffect, useState, useRef } from "react"
 
 const HexagonGrid = () => {
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0, opacity: 0 })
   const [dimensions, setDimensions] = useState({
     columns: 0,
     rows: 0,

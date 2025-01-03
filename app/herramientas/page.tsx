@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 const tools = [
   { id: 'conversion', name: 'Conversión de Tasas' },
   { id: 'amortization', name: 'Amortización de Crédito' },
+  { id: 'salud-financiera', name: 'Salud Financiera' },
 ]
 
 export default function ToolsPage() {

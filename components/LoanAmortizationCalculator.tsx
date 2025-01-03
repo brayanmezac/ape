@@ -63,11 +63,90 @@ export function LoanAmortizationCalculator() {
     aportes: { active: false, value: '' }
   })
 
-  const calculateAmortization = () => {
-    
+  const memoizedCalculateAmortization = React.useCallback(() => {
     const principal = parseFloat(amount)
     const rate = parseFloat(interestRate) / 100 / 12
     const periods = parseInt(months)
+    
+    const calcularAmortizacionFrancesa = (principal: number, rate: number, periods: number): AmortizationRow[] => {
+      const cuota = principal * (rate * Math.pow(1 + rate, periods)) / (Math.pow(1 + rate, periods) - 1)
+      const seguro = advancedSettings.seguro.active ? parseFloat(advancedSettings.seguro.value) || 0 : 0
+      const otros = advancedSettings.otrosCostos.active ? parseFloat(advancedSettings.otrosCostos.value) || 0 : 0
+      
+      let saldo = principal
+      return Array.from({ length: periods }, (_, i) => {
+        const interes = saldo * rate
+        const amortizacion = cuota - interes
+        const nuevoSaldo = saldo - amortizacion
+
+        const row: AmortizationRow = {
+          periodo: i + 1,
+          saldoInicial: saldo,
+          interes: interes,
+          amortizacion: amortizacion,
+          aporte: 0,
+          seguro: seguro,
+          otrosCostos: otros,
+          saldoFinal: nuevoSaldo,
+          cuota: cuota,
+          cuotaTotal: cuota + seguro + otros
+        }
+
+        saldo = nuevoSaldo
+        return row
+      })
+    }
+
+    const calcularAmortizacionAlemana = (principal: number, rate: number, periods: number): AmortizationRow[] => {
+      const amortizacionFija = principal / periods
+      const seguro = parseFloat(advancedSettings.seguro.value) || 0
+      const otros = parseFloat(advancedSettings.otrosCostos.value) || 0
+      
+      let saldo = principal
+      return Array.from({ length: periods }, (_, i) => {
+        const interes = saldo * rate
+        const nuevoSaldo = saldo - amortizacionFija
+        const cuota = amortizacionFija + interes
+
+        const row: AmortizationRow = {
+          periodo: i + 1,
+          saldoInicial: saldo,
+          interes: interes,
+          amortizacion: amortizacionFija,
+          aporte: 0,
+          seguro: seguro,
+          otrosCostos: otros,
+          saldoFinal: nuevoSaldo,
+          cuota: cuota,
+          cuotaTotal: cuota + seguro + otros
+        }
+
+        saldo = nuevoSaldo
+        return row
+      })
+    }
+
+    const calcularAmortizacionAmericana = (principal: number, rate: number, periods: number): AmortizationRow[] => {
+      const interesMensual = principal * rate
+      const seguro = parseFloat(advancedSettings.seguro.value) || 0
+      const otros = parseFloat(advancedSettings.otrosCostos.value) || 0
+
+      return Array.from({ length: periods }, (_, i) => {
+        const cuota = i === periods - 1 ? principal + interesMensual : interesMensual
+        return {
+          periodo: i + 1,
+          saldoInicial: principal,
+          interes: interesMensual,
+          amortizacion: i === periods - 1 ? principal : 0,
+          aporte: 0,
+          seguro: seguro,
+          otrosCostos: otros,
+          saldoFinal: i === periods - 1 ? 0 : principal,
+          cuota: cuota,
+          cuotaTotal: cuota + seguro + otros
+        }
+      })
+    }
 
     let calculatedTable: AmortizationRow[] = []
 
@@ -85,94 +164,17 @@ export function LoanAmortizationCalculator() {
 
     setTable(calculatedTable)
     updateTotals(calculatedTable)
-  }
-  const memoizedCalculateAmortization = React.useCallback(calculateAmortization, [
-    type, amount, months, interestRate, advancedSettings
+  }, [
+    type, 
+    amount, 
+    months, 
+    interestRate, 
+    advancedSettings
   ])
   
   useEffect(() => {
     memoizedCalculateAmortization()
   }, [memoizedCalculateAmortization])
-
-  const calcularAmortizacionFrancesa = (principal: number, rate: number, periods: number): AmortizationRow[] => {
-    const cuota = principal * (rate * Math.pow(1 + rate, periods)) / (Math.pow(1 + rate, periods) - 1)
-    const seguro = advancedSettings.seguro.active ? parseFloat(advancedSettings.seguro.value) || 0 : 0
-    const otros = advancedSettings.otrosCostos.active ? parseFloat(advancedSettings.otrosCostos.value) || 0 : 0
-    
-    let saldo = principal
-    return Array.from({ length: periods }, (_, i) => {
-      const interes = saldo * rate
-      const amortizacion = cuota - interes
-      const nuevoSaldo = saldo - amortizacion
-
-      const row: AmortizationRow = {
-        periodo: i + 1,
-        saldoInicial: saldo,
-        interes: interes,
-        amortizacion: amortizacion,
-        aporte: 0,
-        seguro: seguro,
-        otrosCostos: otros,
-        saldoFinal: nuevoSaldo,
-        cuota: cuota,
-        cuotaTotal: cuota + seguro + otros
-      }
-
-      saldo = nuevoSaldo
-      return row
-    })
-  }
-
-  const calcularAmortizacionAlemana = (principal: number, rate: number, periods: number): AmortizationRow[] => {
-    const amortizacionFija = principal / periods
-    const seguro = parseFloat(advancedSettings.seguro.value) || 0
-    const otros = parseFloat(advancedSettings.otrosCostos.value) || 0
-    
-    let saldo = principal
-    return Array.from({ length: periods }, (_, i) => {
-      const interes = saldo * rate
-      const nuevoSaldo = saldo - amortizacionFija
-      const cuota = amortizacionFija + interes
-
-      const row: AmortizationRow = {
-        periodo: i + 1,
-        saldoInicial: saldo,
-        interes: interes,
-        amortizacion: amortizacionFija,
-        aporte: 0,
-        seguro: seguro,
-        otrosCostos: otros,
-        saldoFinal: nuevoSaldo,
-        cuota: cuota,
-        cuotaTotal: cuota + seguro + otros
-      }
-
-      saldo = nuevoSaldo
-      return row
-    })
-  }
-
-  const calcularAmortizacionAmericana = (principal: number, rate: number, periods: number): AmortizationRow[] => {
-    const interesMensual = principal * rate
-    const seguro = parseFloat(advancedSettings.seguro.value) || 0
-    const otros = parseFloat(advancedSettings.otrosCostos.value) || 0
-
-    return Array.from({ length: periods }, (_, i) => {
-      const cuota = i === periods - 1 ? principal + interesMensual : interesMensual
-      return {
-        periodo: i + 1,
-        saldoInicial: principal,
-        interes: interesMensual,
-        amortizacion: i === periods - 1 ? principal : 0,
-        aporte: 0,
-        seguro: seguro,
-        otrosCostos: otros,
-        saldoFinal: i === periods - 1 ? 0 : principal,
-        cuota: cuota,
-        cuotaTotal: cuota + seguro + otros
-      }
-    })
-  }
 
   const handleAporte = (periodo: number, aporte: number) => {
     const updatedTable = table.map((row, index) => {

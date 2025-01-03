@@ -1,3 +1,4 @@
+import { Card } from '@/components/ui/card'
 import { Breadcrumb } from '../../../components/Breadcrumb'
 import { InterestRateCalculator } from '../../../components/InterestRateCalculator'
 
@@ -11,7 +12,9 @@ export default function ConversionPage() {
           { label: 'Conversión de Tasas', href: '/herramientas/conversion' },
         ]} />
         <h1 className="text-3xl font-bold mt-4 mb-8">Conversión de Tasas</h1>
-        <InterestRateCalculator />
+        <Card className="p-6">
+          <InterestRateCalculator />
+        </Card>
       </main>
     </div>
   )

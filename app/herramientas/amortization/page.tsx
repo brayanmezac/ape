@@ -1,3 +1,4 @@
+import { Card } from '@/components/ui/card'
 import { Breadcrumb } from '../../../components/Breadcrumb'
 import { LoanAmortizationCalculator } from '../../../components/LoanAmortizationCalculator'
 
@@ -11,7 +12,9 @@ export default function AmortizationPage() {
           { label: 'Amortización de Crédito', href: '/herramientas/amortization' },
         ]} />
         <h1 className="text-3xl font-bold mt-4 mb-8">Amortización de Crédito</h1>
-        <LoanAmortizationCalculator />
+        <Card className="p-6" >
+          <LoanAmortizationCalculator />
+        </Card>
       </main>
     </div>
   )
