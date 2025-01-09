@@ -131,51 +131,47 @@ export function FinancialHealthCalculator() {
   };
 
   const calculateMetrics = () => {
-    const totalAssets = financialHealth.assets.reduce((sum, asset) => sum + asset.value, 0)
-    const totalLiabilities = financialHealth.liabilities.reduce((sum, liability) => sum + liability.value, 0)
-    
-    // Calculamos el ingreso mensual total
+    const totalAssets = financialHealth.assets.reduce((sum, asset) => sum + asset.value, 0);
+    const totalLiabilities = financialHealth.liabilities.reduce((sum, liability) => sum + liability.value, 0);
+
     const monthlyIncome = financialHealth.incomes.reduce((sum, income) => {
       switch (income.frequency) {
-        case 'weekly': return sum + (income.value * 4)
-        case 'monthly': return sum + income.value
-        case 'quarterly': return sum + (income.value / 3)
-        case 'annual': return sum + (income.value / 12)
-        default: return sum
+        case 'weekly': return sum + (income.value * 4);
+        case 'monthly': return sum + income.value;
+        case 'quarterly': return sum + (income.value / 3);
+        case 'annual': return sum + (income.value / 12);
+        default: return sum;
       }
-    }, 0)
+    }, 0);
 
-    // Calculamos los gastos mensuales desde el nuevo formulario de gastos
     const monthlyExpenses = financialHealth.expenses?.reduce((sum, expense) => {
       switch (expense.frequency) {
-        case 'weekly': return sum + (expense.value * 4)
-        case 'monthly': return sum + expense.value
-        case 'quarterly': return sum + (expense.value / 3)
-        case 'annual': return sum + (expense.value / 12)
-        default: return sum
+        case 'weekly': return sum + (expense.value * 4);
+        case 'monthly': return sum + expense.value;
+        case 'quarterly': return sum + (expense.value / 3);
+        case 'annual': return sum + (expense.value / 12);
+        default: return sum;
       }
-    }, 0)
+    }, 0) || 0;
 
-    // Calculamos los ahorros e inversiones totales
     const savings = financialHealth.assets.filter(asset => 
       asset.type === 'ahorro' || asset.type === 'inversiones'
-    ).reduce((sum, asset) => sum + asset.value, 0)
+    ).reduce((sum, asset) => sum + asset.value, 0);
+
+    const updatedMetrics = {
+      netWorth: totalAssets - totalLiabilities,
+      liquidityRatio: monthlyExpenses > 0 ? savings / monthlyExpenses : 0,
+      savingsRatio: monthlyIncome > 0 ? (savings / (monthlyIncome * 12)) * 100 : 0,
+      debtRatio: totalAssets > 0 ? (totalLiabilities / totalAssets) * 100 : 0,
+      monthlyDebtRatio: monthlyIncome > 0 ? (monthlyExpenses / monthlyIncome) * 100 : 0,
+      solvencyRatio: totalAssets > 0 ? ((totalAssets - totalLiabilities) / totalAssets) * 100 : 0
+    };
 
     setFinancialHealth(prev => ({
       ...prev,
-      metrics: {
-        // Mantenemos el patrimonio anterior si no hay activos ni pasivos nuevos
-        netWorth: (financialHealth.assets.length === 0 && financialHealth.liabilities.length === 0) 
-          ? prev.metrics.netWorth 
-          : totalAssets - totalLiabilities,
-        liquidityRatio: monthlyExpenses > 0 ? savings / monthlyExpenses : prev.metrics.liquidityRatio,
-        savingsRatio: monthlyIncome > 0 ? (savings / (monthlyIncome * 12)) * 100 : prev.metrics.savingsRatio,
-        debtRatio: totalAssets > 0 ? (totalLiabilities / totalAssets) * 100 : prev.metrics.debtRatio,
-        monthlyDebtRatio: monthlyIncome > 0 ? (monthlyExpenses / monthlyIncome) * 100 : prev.metrics.monthlyDebtRatio,
-        solvencyRatio: totalAssets > 0 ? ((totalAssets - totalLiabilities) / totalAssets) * 100 : prev.metrics.solvencyRatio
-      }
-    }))
-  }
+      metrics: updatedMetrics
+    }));
+  };
 
   const handleResetData = () => {
     // Limpiamos el localStorage

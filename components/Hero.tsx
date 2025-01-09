@@ -1,6 +1,7 @@
 'use client'
-import { LottieAnimation } from './LottieAnimation'
 import React, { useEffect, useState, useRef } from "react"
+import gsap from "gsap"
+import { LottieAnimation } from './LottieAnimation'
 
 const HexagonGrid = () => {
   const [dimensions, setDimensions] = useState({
@@ -9,9 +10,9 @@ const HexagonGrid = () => {
     hexSize: 50,
   })
   const gridRef = useRef<HTMLDivElement>(null)
-  const [glowingGroupA, setGlowingGroupA] = useState<Set<string>>(new Set())
-  const [glowingGroupB, setGlowingGroupB] = useState<Set<string>>(new Set())
-  const [isGroupA, setIsGroupA] = useState(true)
+  const cursorRef = useRef<HTMLDivElement>(null)
+  const [activeHexagons, setActiveHexagons] = useState<Set<string>>(new Set())
+  const timelineRef = useRef<GSAPTimeline | null>(null)
 
   const calculateDimensions = () => {
     const baseHexSize = Math.max(window.innerWidth / 80, 50)
@@ -33,12 +34,81 @@ const HexagonGrid = () => {
     return () => window.removeEventListener("resize", calculateDimensions)
   }, [])
 
+  // Cursor movement effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (gridRef.current) {
+        const rect = gridRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Calcular el índice de la fila y columna del hexágono
+        const hexWidth = dimensions.hexSize;
+        const hexHeight = Math.sqrt(1.5) * hexWidth; // Altura del hexágono
+        const row = Math.floor(y / (hexHeight + hexWidth * 0.02)); // Ajustar el margen
+        const col = Math.floor(x / (hexWidth + hexWidth * 0.02)); // Ajustar el margen
+
+        // Verificar si el índice está dentro de los límites
+        if (row >= 0 && row < dimensions.rows && col >= 0 && col < dimensions.columns) {
+          const hexId = `${row}-${col}`;
+          // Iluminar el hexágono correspondiente
+          const element = document.querySelector(`[data-hex-id="${hexId}"]`);
+          if (element) {
+            gsap.to(element, {
+              scale: 1.1,
+              backgroundColor: 'rgba(255, 220, 150, 0.9)',
+              borderColor: 'rgba(255, 220, 150, 0.6)',
+              boxShadow: '0 0 20px rgba(255, 220, 150, 0.6)',
+              opacity: 1,
+              duration: 0.3,
+              ease: "power2.out"
+            });
+            setActiveHexagons(prev => new Set(prev).add(hexId));
+          }
+        }
+      }
+    };
+
+    const handleMouseLeave = () => {
+      // Resetear la iluminación de los hexágonos
+      activeHexagons.forEach(id => {
+        const element = document.querySelector(`[data-hex-id="${id}"]`);
+        if (element) {
+          gsap.to(element, {
+            scale: 1,
+            backgroundColor: 'rgba(254, 144, 0, 0.8)',
+            borderColor: 'rgba(254, 144, 0, 0.3)',
+            boxShadow: 'none',
+            opacity: 0.8,
+            duration: 0.5,
+            ease: "power2.out"
+          });
+        }
+      });
+      setActiveHexagons(new Set());
+    };
+
+    const element = gridRef.current;
+    if (element) {
+      element.addEventListener("mousemove", handleMouseMove);
+      element.addEventListener("mouseleave", handleMouseLeave);
+    }
+
+    return () => {
+      if (element) {
+        element.removeEventListener("mousemove", handleMouseMove);
+        element.removeEventListener("mouseleave", handleMouseLeave);
+      }
+    };
+  }, [dimensions, activeHexagons]);
+
+  // Random hexagon animation
   useEffect(() => {
     const selectRandomHexagons = () => {
       const newGlowing = new Set<string>()
       const totalHexagons = dimensions.rows * dimensions.columns
       const numToGlow = Math.floor(totalHexagons * 0.015)
-
+      
       for (let i = 0; i < numToGlow; i++) {
         const row = Math.floor(Math.random() * dimensions.rows)
         const col = Math.floor(Math.random() * dimensions.columns)
@@ -47,21 +117,93 @@ const HexagonGrid = () => {
       return newGlowing
     }
 
-    const makeHexagonsGlow = () => {
-      if (isGroupA) {
-        setGlowingGroupB(selectRandomHexagons())
-      } else {
-        setGlowingGroupA(selectRandomHexagons())
+    const animateHexagons = () => {
+      const newActive = selectRandomHexagons()
+      
+      if (timelineRef.current) {
+        timelineRef.current.kill()
       }
-      setIsGroupA(!isGroupA)
+
+      timelineRef.current = gsap.timeline()
+
+      activeHexagons.forEach(id => {
+        if (!newActive.has(id)) {
+          const element = document.querySelector(`[data-hex-id="${id}"]`)
+          if (element) {
+            timelineRef.current?.to(element, {
+              backgroundColor: 'rgba(254, 144, 0, 0.8)',
+              borderColor: 'rgba(254, 144, 0, 0.3)',
+              boxShadow: 'none',
+              scale: 1,
+              opacity: 0.8,
+              duration: 1.5,
+              ease: 'power2.inOut'
+            }, 0)
+          }
+        }
+      })
+
+      newActive.forEach(id => {
+        const element = document.querySelector(`[data-hex-id="${id}"]`)
+        if (element) {
+          timelineRef.current?.to(element, {
+            backgroundColor: 'rgba(255, 200, 100, 0.9)',
+            borderColor: 'rgba(255, 200, 100, 0.5)',
+            boxShadow: '0 0 15px rgba(255, 200, 100, 0.5)',
+            scale: 1.05,
+            opacity: 1,
+            duration: 1.5,
+            ease: 'power2.inOut'
+          }, 0)
+        }
+      })
+
+      setActiveHexagons(newActive)
     }
 
-    const interval = setInterval(makeHexagonsGlow, 3000)
+    const interval = setInterval(animateHexagons, 3000)
     return () => clearInterval(interval)
-  }, [dimensions, isGroupA])
+  }, [dimensions, activeHexagons])
+
+  // Hexagon hover effect handler
+  const handleHexagonHover = (e: React.MouseEvent<HTMLDivElement>) => {
+    const hexagon = e.currentTarget
+    gsap.to(hexagon, {
+      scale: 1.1,
+      backgroundColor: 'rgba(255, 220, 150, 0.9)',
+      borderColor: 'rgba(255, 220, 150, 0.6)',
+      boxShadow: '0 0 20px rgba(255, 220, 150, 0.6)',
+      opacity: 1,
+      duration: 0.1,
+      ease: "power2.out"
+    })
+  }
+
+  const handleHexagonLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    const hexagon = e.currentTarget
+    gsap.to(hexagon, {
+      scale: 1,
+      backgroundColor: 'rgba(254, 144, 0, 0.8)',
+      borderColor: 'rgba(254, 144, 0, 0.3)',
+      boxShadow: 'none',
+      opacity: 0.8,
+      duration: 0.3,
+      ease: "power2.out"
+    })
+  }
 
   return (
-    <div ref={gridRef} className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden">
+      <div
+        ref={cursorRef}
+        className="cursor absolute pointer-events-none"
+        style={{
+          width: '350px',
+          height: '350px',
+          transform: 'translate(0, 0)',
+          opacity: 0,
+        }}
+      />
       <div className="hex-grid">
         {Array.from({ length: dimensions.rows }).map((_, i) => (
           <div
@@ -75,10 +217,10 @@ const HexagonGrid = () => {
             {Array.from({ length: dimensions.columns }).map((_, j) => (
               <div
                 key={j}
-                className={`hexagon ${
-                  glowingGroupA.has(`${i}-${j}`) ? 'glow-a' : 
-                  glowingGroupB.has(`${i}-${j}`) ? 'glow-b' : ''
-                }`}
+                data-hex-id={`${i}-${j}`}
+                className="hexagon"
+                onMouseEnter={handleHexagonHover}
+                onMouseLeave={handleHexagonLeave}
                 style={{
                   width: `${dimensions.hexSize}px`,
                   height: `${Math.sqrt(1.5) * dimensions.hexSize}px`,
@@ -123,48 +265,9 @@ const HexagonGrid = () => {
             0% 75%,
             0% 25%
           );
-        }
-
-        @keyframes glowIn {
-          0% {
-            background-color: rgba(254, 144, 0, 0.8);
-            border-color: rgba(254, 144, 0, 0.3);
-            box-shadow: none;
-            transform: scale(1);
-            opacity: 0.8;
-          }
-          100% {
-            background-color: rgba(255, 200, 100, 0.9);
-            border-color: rgba(255, 200, 100, 0.5);
-            box-shadow: 0 0 15px rgba(255, 200, 100, 0.5);
-            transform: scale(1.05);
-            opacity: 1;
-          }
-        }
-
-        @keyframes glowOut {
-          0% {
-            background-color: rgba(255, 200, 100, 0.9);
-            border-color: rgba(255, 200, 100, 0.5);
-            box-shadow: 0 0 15px rgba(255, 200, 100, 0.5);
-            transform: scale(1.05);
-            opacity: 1;
-          }
-          100% {
-            background-color: rgba(254, 144, 0, 0.8);
-            border-color: rgba(254, 144, 0, 0.3);
-            box-shadow: none;
-            transform: scale(1);
-            opacity: 0.8;
-          }
-        }
-
-        .hexagon.glow-a {
-          animation: ${isGroupA ? 'glowIn' : 'glowOut'} 1.5s ease-in-out forwards;
-        }
-
-        .hexagon.glow-b {
-          animation: ${!isGroupA ? 'glowIn' : 'glowOut'} 1.5s ease-in-out forwards;
+          opacity: 0.8;
+          transform: scale(1);
+          cursor: pointer;
         }
       `}</style>
     </div>
@@ -226,7 +329,7 @@ export function Hero() {
         }}
       />
       <HexagonGrid />
-      <div className="container mx-auto text-center relative z-10">
+      <div className="container mx-auto text-center relative z-10" style={{ pointerEvents: 'none' }}>
         <h1 className="text-4xl font-bold mb-4">Bienvenido a Ape</h1>
         <div className="w-64 h-64 mx-auto mb-8">
           <LottieAnimation src="/animations/Animation_Hero.json" />
@@ -275,4 +378,6 @@ export function Hero() {
     </section>
   )
 }
+
+export default Hero
 
