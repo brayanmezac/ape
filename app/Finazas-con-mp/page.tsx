@@ -119,9 +119,10 @@ export default function FinancePage() {
         {/* Warning Section */}
         <Card className="mt-6 w-full animate-fade-up animate-delay-1000">
           <CardContent className="pt-6">
+            <p className="text-center text-sm text-muted-foreground">⚠️ ¡Aviso importante! ⚠️</p>
             <p className="text-center text-sm text-muted-foreground">
-              ⚠️ Estas son mis únicas redes sociales oficiales. No te dejes engañar por cuentas falsas.
-              Si ves perfiles sospechosos, ¡repórtalos!
+            
+            No uso Telegram. 🚫 Hay cuentas falsas intentando engañar 😡. Si encuentras alguna, denunciala. 🚨 ¡Cuidemos nuestra comunidad! ❤️
             </p>
           </CardContent>
         </Card>
@@ -129,22 +130,15 @@ export default function FinancePage() {
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogContent className="sm:max-w-[400px] md:max-w-[600px] lg:max-w-[700px]">
             <DialogHeader>
-              <DialogTitle className="text-xl sm:text-2xl font-bold">⚠️ Aviso Importante</DialogTitle>
+              <DialogTitle className="text-xl sm:text-2xl font-bold">💌 ¡Hola, mi gente querida! 💌</DialogTitle>
               <DialogDescription className="pt-4 text-sm sm:text-base">
                 <p className="mb-4">
-                  Últimamente, han estado circulando cuentas falsas que se hacen pasar por mí con el propósito de engañar y estafar a las personas.
+                  🙏 Estas son MIS ÚNICAS REDES SOCIALES OFICIALES 🌟.
+                  Si tu objetivo es aprender tips financieros que hagan la vida más fácil, ¡estás en el lugar correcto!
                 </p>
                 <p className="mb-4">
-                  Estas son mis <span className="font-bold">ÚNICAS REDES SOCIALES OFICIALES</span>:
-                </p>
-                <ul className="list-disc pl-4 space-y-2">
-                  <li>YouTube: @FinanzasconMP</li>
-                  <li>Instagram: @finanzasconmp</li>
-                  <li>TikTok: @finanzas.con.mp</li>
-                  <li>Correo: finanzasconmp@gmail.com</li>
-                </ul>
-                <p className="mt-4 text-red-500 font-semibold">
-                  Si ves alguna cuenta sospechosa o que no está en esta lista, ¡repórtala de inmediato! 🚨
+                  💰 Las finanzas son para todos y, sí, ¡pueden ser divertidas! 😄✨
+                  🎯 ¡Sígueme y aprendamos juntos! 🚀
                 </p>
               </DialogDescription>
             </DialogHeader>
