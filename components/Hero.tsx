@@ -107,7 +107,7 @@ const HexagonGrid = () => {
     const selectRandomHexagons = () => {
       const newGlowing = new Set<string>()
       const totalHexagons = dimensions.rows * dimensions.columns
-      const numToGlow = Math.floor(totalHexagons * 0.015)
+      const numToGlow = Math.floor(totalHexagons * 0.01)
       
       for (let i = 0; i < numToGlow; i++) {
         const row = Math.floor(Math.random() * dimensions.rows)
@@ -161,7 +161,7 @@ const HexagonGrid = () => {
       setActiveHexagons(newActive)
     }
 
-    const interval = setInterval(animateHexagons, 3000)
+    const interval = setInterval(animateHexagons, 2000)
     return () => clearInterval(interval)
   }, [dimensions, activeHexagons])
 
@@ -174,7 +174,7 @@ const HexagonGrid = () => {
       borderColor: 'rgba(255, 220, 150, 0.6)',
       boxShadow: '0 0 20px rgba(255, 220, 150, 0.6)',
       opacity: 1,
-      duration: 0.1,
+      duration: 0.3,
       ease: "power2.out"
     })
   }
@@ -187,7 +187,7 @@ const HexagonGrid = () => {
       borderColor: 'rgba(254, 144, 0, 0.3)',
       boxShadow: 'none',
       opacity: 0.8,
-      duration: 0.3,
+      duration: 0.5,
       ease: "power2.out"
     })
   }
