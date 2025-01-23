@@ -2,7 +2,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Download, Instagram, Mail, TwitterIcon as TikTok, Youtube } from 'lucide-react'
+import { Download, Instagram, Mail, TwitterIcon as TikTok, Youtube, Clipboard } from 'lucide-react'
 import Link from "next/link"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { useEffect, useState } from "react"
@@ -45,34 +45,59 @@ export default function FinancePage() {
         </p>
 
         {/* Social Links */}
-        <div className="mt-6 grid w-full max-w-md gap-4">
-          <Button asChild variant="default" className="bg-red-600 hover:bg-red-700 animate-fade-up animate-delay-300">
-            <Link href="https://www.youtube.com/@FinanzasconMP" className="flex items-center gap-2">
-              <Youtube className="h-5 w-5" />
-              YouTube
-            </Link>
-          </Button>
+        <div className="mt-6 grid w-full max-w-5xl gap-6 grid-cols-1 md:grid-cols-2">
+          {/* Columna izquierda */}
+          <div className="flex flex-col gap-4">
+            <Button asChild variant="default" className="bg-red-600 hover:bg-red-700 animate-fade-up animate-delay-300">
+              <Link href="https://www.youtube.com/@FinanzasconMP" className="flex items-center gap-2">
+                <Youtube className="h-5 w-5" />
+                YouTube
+              </Link>
+            </Button>
 
-          <Button asChild variant="default" className="bg-pink-600 hover:bg-pink-700 animate-fade-up animate-delay-500">
-            <Link href="https://www.instagram.com/finanzasconmp" className="flex items-center gap-2">
-              <Instagram className="h-5 w-5" />
-              Instagram
-            </Link>
-          </Button>
+            <Button asChild variant="default" className="bg-pink-600 hover:bg-pink-700 animate-fade-up animate-delay-500">
+              <Link href="https://www.instagram.com/finanzasconmp" className="flex items-center gap-2">
+                <Instagram className="h-5 w-5" />
+                Instagram
+              </Link>
+            </Button>
+          </div>
 
-          <Button asChild variant="default" className="bg-black hover:bg-gray-800 animate-fade-up animate-delay-700">
-            <Link href="https://www.tiktok.com/@finanzas.con.mp" className="flex items-center gap-2">
-              <TikTok className="h-5 w-5" />
-              TikTok
-            </Link>
-          </Button>
+          {/* Columna derecha */}
+          <div className="flex flex-col gap-4">
+            <Button asChild variant="default" className="bg-black hover:bg-gray-800 animate-fade-up animate-delay-700">
+              <Link href="https://www.tiktok.com/@finanzas.con.mp" className="flex items-center gap-2">
+                <TikTok className="h-5 w-5" />
+                TikTok
+              </Link>
+            </Button>
 
-          <Button asChild variant="default" className="bg-purple-600 hover:bg-purple-700 animate-fade-up animate-delay-1000">
-            <Link href="mailto:finanzasconmp@gmail.com" className="flex items-center gap-2">
-              <Mail className="h-5 w-5" />
-              Correo Electrónico
-            </Link>
-          </Button>
+            <div className="flex items-center gap-4 w-full">
+              <Button asChild variant="default" className="flex-1 bg-purple-600 hover:bg-purple-700 animate-fade-up animate-delay-1000">
+                <Link href="mailto:finanzasconmp@gmail.com" className="flex items-center gap-2 w-full">
+                  <Mail className="h-5 w-5" />
+                  Correo Electrónico
+                </Link>
+              </Button>
+              <Button
+                variant="default"
+                className="w-24 bg-purple-600 hover:bg-purple-700 animate-fade-up animate-delay-1000"
+                onClick={() => {
+                  navigator.clipboard.writeText('finanzasconmp@gmail.com');
+                  // Mostrar notificación estilizada
+                  const notification = document.createElement('div');
+                  notification.className = 'fixed bottom-5 right-5 bg-green-500 text-white p-4 rounded shadow-lg';
+                  notification.innerText = 'Correo copiado al portapapeles';
+                  document.body.appendChild(notification);
+                  setTimeout(() => {
+                    notification.remove();
+                  }, 3000); // Eliminar la notificación después de 3 segundos
+                }}
+              >
+                <Clipboard className="h-5 w-5 text-white" />
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* Resources Section */}

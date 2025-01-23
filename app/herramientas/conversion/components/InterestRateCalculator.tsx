@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { X } from 'lucide-react'
 import { TasaReferencia } from './TasaReferencia'
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible"
+import { ChevronDown } from "lucide-react"
 
 const periodosAlAno = {
   diario: 360,
@@ -23,6 +25,7 @@ export function InterestRateCalculator() {
     Object.keys(periodosAlAno).reduce((acc, periodo) => ({ ...acc, [periodo]: '' }), {}) as Record<Periodo, string>
   );
   const [error, setError] = useState<string | null>(null);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const handleInputChange = (periodo: Periodo, value: string) => {
     const cleanedValue = value.replace(/[^0-9.]/g, '');
@@ -66,18 +69,49 @@ export function InterestRateCalculator() {
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-4">
         {Object.keys(periodosAlAno).map((periodo) => (
-          <div key={periodo} className="space-y-2">
-            <Label htmlFor={periodo}>{periodo.charAt(0).toUpperCase() + periodo.slice(1)}</Label>
-            <Input
-              id={periodo}
-              type="text"
-              value={rates[periodo as Periodo]}
-              onChange={(e) => handleInputChange(periodo as Periodo, e.target.value)}
-              placeholder={`Tasa ${periodo}`}
-            />
-          </div>
+          (periodo === 'mensualVencido' || periodo === 'anualVencido') && (
+            <div key={periodo} className="space-y-2">
+              <Label htmlFor={periodo}>{periodo.charAt(0).toUpperCase() + periodo.slice(1)}</Label>
+              <Input
+                id={periodo}
+                type="text"
+                value={rates[periodo as Periodo]}
+                onChange={(e) => handleInputChange(periodo as Periodo, e.target.value)}
+                placeholder={`Tasa ${periodo}`}
+              />
+            </div>
+          )
         ))}
       </div>
+
+      <Collapsible 
+        open={showAdvanced} 
+        onOpenChange={setShowAdvanced}
+        className="border rounded-lg p-2"
+      >
+        <CollapsibleTrigger className="flex w-full items-center justify-between p-2">
+          <span>otras conversiones</span>
+          <ChevronDown className={`w-4 h-4 transition-transform ${showAdvanced ? 'transform rotate-180' : ''}`} />
+        </CollapsibleTrigger>
+        <CollapsibleContent className="space-y-4 pt-4">
+          <div className="space-y-4">
+            {Object.keys(periodosAlAno).map((periodo) => (
+              (periodo !== 'mensualVencido' && periodo !== 'anualVencido') && (
+                <div key={periodo} className="space-y-2">
+                  <Label htmlFor={periodo}>{periodo.charAt(0).toUpperCase() + periodo.slice(1)}</Label>
+                  <Input
+                    id={periodo}
+                    type="text"
+                    value={rates[periodo as Periodo]}
+                    onChange={(e) => handleInputChange(periodo as Periodo, e.target.value)}
+                    placeholder={`Tasa ${periodo}`}
+                  />
+                </div>
+              )
+            ))}
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
 
       {error && (
         <div className="text-red-500 text-sm">

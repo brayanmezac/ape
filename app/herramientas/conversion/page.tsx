@@ -1,6 +1,6 @@
 import { Card } from '@/components/ui/card'
 import { Breadcrumb } from '../../../components/Breadcrumb'
-import { InterestRateCalculator } from '../../../components/InterestRateCalculator'
+import { InterestRateCalculator } from './components/InterestRateCalculator'
 
 export default function ConversionPage() {
   return (

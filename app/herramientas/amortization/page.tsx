@@ -1,6 +1,6 @@
 import { Card } from '@/components/ui/card'
 import { Breadcrumb } from '../../../components/Breadcrumb'
-import { LoanAmortizationCalculator } from '../../../components/LoanAmortizationCalculator'
+import { LoanAmortizationCalculator } from './components/LoanAmortizationCalculator'
 
 export default function AmortizationPage() {
   return (

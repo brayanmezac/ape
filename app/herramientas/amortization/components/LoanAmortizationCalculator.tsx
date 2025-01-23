@@ -46,6 +46,7 @@ interface AdvancedSettings {
   seguro: AdvancedSetting
   otrosCostos: AdvancedSetting
   aportes: AdvancedSetting
+  tabsVisibility: AdvancedSetting
 }
 
 export function LoanAmortizationCalculator() {
@@ -57,10 +58,12 @@ export function LoanAmortizationCalculator() {
   const [totalInterest, setTotalInterest] = useState<number>(0)
   const [totalPayment, setTotalPayment] = useState<number>(0)
   const [showAdvanced, setShowAdvanced] = useState(false)
+  const [showTabs, setShowTabs] = useState<boolean>(false)
   const [advancedSettings, setAdvancedSettings] = useState<AdvancedSettings>({
     seguro: { active: false, value: '' },
     otrosCostos: { active: false, value: '' },
-    aportes: { active: false, value: '' }
+    aportes: { active: false, value: '' },
+    tabsVisibility: { active: false, value: '' }
   })
 
   const memoizedCalculateAmortization = React.useCallback(() => {
@@ -235,18 +238,26 @@ export function LoanAmortizationCalculator() {
         ...prev[setting],
         [field]: newValue
       }
-    }))
+    }));
+
+    if (setting === 'tabsVisibility') {
+      setShowTabs(newValue as boolean);
+    }
   }
 
   return (
     <div className="p-4 space-y-4">
-      <Tabs value={type} onValueChange={(val) => setType(val as AmortizationType)}>
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="frances">Francés</TabsTrigger>
-          <TabsTrigger value="aleman">Alemán</TabsTrigger>
-          <TabsTrigger value="americano">Americano</TabsTrigger>
-        </TabsList>
-      </Tabs>
+      
+
+      {showTabs && (
+        <Tabs value={type} onValueChange={(val) => setType(val as AmortizationType)}>
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="frances">Francés</TabsTrigger>
+            <TabsTrigger value="aleman">Alemán</TabsTrigger>
+            <TabsTrigger value="americano">Americano</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
@@ -277,7 +288,6 @@ export function LoanAmortizationCalculator() {
           />
         </div>
       </div>
-
       <Collapsible 
         open={showAdvanced} 
         onOpenChange={setShowAdvanced}
@@ -327,11 +337,17 @@ export function LoanAmortizationCalculator() {
                   onCheckedChange={(checked) => handleSettingChange('aportes', 'active', checked)}
                 />
               </div>
+              <div className="space-y-2 p-4">
+              <Switch
+                label="Mostrar Tabs"
+                checked={showTabs}
+                onCheckedChange={(checked) => handleSettingChange('tabsVisibility', 'active', checked)}
+              />
+            </div>
             </div>
           </div>
         </CollapsibleContent>
-      </Collapsible>
-
+      </Collapsible>  
       <Button onClick={memoizedCalculateAmortization} className="w-full bg-[#fe9800] hover:bg-[#fe5900]" >
         Calcular Amortización
       </Button>
