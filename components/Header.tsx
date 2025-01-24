@@ -21,9 +21,9 @@ export function Header() {
           <Link href="/" className="text-white text-2xl font-bold">ColMaya</Link>
         </div>
         <div className="hidden md:flex space-x-4">
-          <Link href="#tools" className="text-white hover:text-yellow-200">Herramientas</Link>
-          <Link href="#about" className="text-white hover:text-yellow-200">Acerca de</Link>
-          <Link href="#contact" className="text-white hover:text-yellow-200">Contacto</Link>
+          <Link href="/herramientas" className="text-white hover:text-yellow-200">Herramientas</Link>
+          <Link href="./#about" className="text-white hover:text-yellow-200">Acerca de</Link>
+          <Link href="/Finazas-con-mp" className="text-white hover:text-yellow-200">Contacto</Link>
         </div>
         <Button className="md:hidden bg-white text-[#fe9800] hover:bg-yellow-100" onClick={toggleMenu}>
           {isMenuOpen ? <X /> : <Menu />}
@@ -31,9 +31,9 @@ export function Header() {
       </nav>
       {isMenuOpen && (
         <div className="md:hidden mt-4">
-          <Link href="#tools" className="block text-white hover:text-yellow-200 py-2">Herramientas</Link>
-          <Link href="#about" className="block text-white hover:text-yellow-200 py-2">Acerca de</Link>
-          <Link href="#contact" className="block text-white hover:text-yellow-200 py-2">Contacto</Link>
+          <Link href="/herramientas" className="block text-white hover:text-yellow-200 py-2">Herramientas</Link>
+          <Link href="./about" className="block text-white hover:text-yellow-200 py-2">Acerca de</Link>
+          <Link href="/Finazas-con-mp" className="block text-white hover:text-yellow-200 py-2">Contacto</Link>
         </div>
       )}
     </header>

@@ -2,7 +2,9 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Download, Instagram, Mail, TwitterIcon as TikTok, Youtube, Clipboard } from 'lucide-react'
+import { FaWhatsapp, FaYoutube, FaInstagram,  FaTiktok } from "react-icons/fa6";
+import { FaTools } from "react-icons/fa";
+import { Download, Mail,  Clipboard } from 'lucide-react'
 import Link from "next/link"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { useEffect, useState } from "react"
@@ -73,14 +75,14 @@ export default function FinancePage() {
           <div className="flex flex-col gap-4">
             <Button asChild variant="default" className="bg-red-600 hover:bg-red-700 animate-fade-up animate-delay-300">
               <Link href="https://www.youtube.com/@FinanzasconMP" className="flex items-center gap-2">
-                <Youtube className="h-5 w-5" />
+                <FaYoutube className="h-5 w-5" />
                 YouTube
               </Link>
             </Button>
 
             <Button asChild variant="default" className="bg-pink-600 hover:bg-pink-700 animate-fade-up animate-delay-500">
               <Link href="https://www.instagram.com/finanzasconmp" className="flex items-center gap-2">
-                <Instagram className="h-5 w-5" />
+                <FaInstagram className="h-5 w-5" />
                 Instagram
               </Link>
             </Button>
@@ -90,7 +92,7 @@ export default function FinancePage() {
           <div className="flex flex-col gap-4">
             <Button asChild variant="default" className="bg-black hover:bg-gray-800 animate-fade-up animate-delay-700">
               <Link href="https://www.tiktok.com/@finanzas.con.mp" className="flex items-center gap-2">
-                <TikTok className="h-5 w-5" />
+                <FaTiktok className="h-5 w-5" />
                 TikTok
               </Link>
             </Button>
@@ -124,9 +126,10 @@ export default function FinancePage() {
 
         {/* Resources Section */}
         <div className="mt-12 grid w-full gap-6 md:grid-cols-2">
-          <Card className="animate-fade-up animate-delay-700">
-            <CardHeader>
+          <Card className="animate-fade-up animate-delay-700 bg-[#fff9e2]">
+            <CardHeader className="grid grid-flow-col">
               <CardTitle>Calculadoras Financieras</CardTitle>
+              <FaTools className="h-4 w-4" style={{ marginTop: 0 }}/>
             </CardHeader>
             <CardContent className="grid gap-4">
               <Button variant="outline" className="flex items-center justify-between bg-[#FFF4B2]" asChild>
@@ -143,7 +146,7 @@ export default function FinancePage() {
               </p>
               
               <Button variant="outline" className="flex items-center justify-between bg-[#FFDAB9]" asChild>
-                <a href="/files/Calculadora_de_Ahorro.xlsx" download>
+                <a href="/files/Calculadora_Ahorro.xlsx" download>
                   <span>Calculadora de Ahorro</span>
                   <Download className="h-4 w-4" />
                 </a>
@@ -157,7 +160,7 @@ export default function FinancePage() {
               
               <Button variant="outline" className="flex items-center justify-between bg-[#FFC1C1]" asChild>
                 <a href="/files/Calculadora_tasas.xlsx" download>
-                  <span>Calculadora de Tasas</span>
+                  <span>Calculadora de crédito</span>
                   <Download className="h-4 w-4" />
                 </a>
               </Button>
@@ -170,13 +173,24 @@ export default function FinancePage() {
             </CardContent>
           </Card>
 
-          <Card className="animate-fade-up animate-delay-1000">
-            <CardHeader>
-              <CardTitle>Comunidad</CardTitle>
+          <Card className="animate-fade-up animate-delay-1000 bg-[#B2EABF]">
+            <CardHeader className="grid grid-flow-col">
+              <CardTitle>Comunidad de WhatsApp</CardTitle> 
+              <FaWhatsapp className="h-4 w-4" style={{ marginTop: 0 }}/>
             </CardHeader>
             <CardContent>
-              <p className="mb-4 text-sm text-muted-foreground">
-                ¡Únete a nuestra comunidad oficial! Completa el formulario para ser parte de este espacio seguro y lleno de valor.
+              <p className="mb-4 text-sm text-slate-600">
+              🌟 Únete a nuestra comunidad y sé parte de nuestra colmena 🐝
+              
+              <br/>¡No estás solo! Somos el zumbido 🐝 que te guía y hablamos de finanzas de forma clara y sencilla.
+              
+              <br/>📈 ¿Qué encontrarás en nuestra comunidad?
+              <br/>🔍 Tips financieros 
+              <br/>🤝 Conexión con personas.
+              <br/>💬 Un espacio para resolver tus dudas.
+              
+              <br/>🚀 Es tu momento de tomar el control de tus finanzas.
+              <br/>¡Únete ahora! 📝👥
               </p>
               <Button className="w-full bg-[#FE9800]">
                 <Link href="https://forms.gle/gp1YiHyyVxTnCBNYA">Unirse a la Comunidad</Link>
@@ -186,11 +200,11 @@ export default function FinancePage() {
         </div>
 
         {/* Warning Section */}
-        <Card className="mt-6 w-full animate-fade-up animate-delay-1000">
+        <Card className="mt-6 w-full animate-fade-up animate-delay-1000 bg-[#ffacac]">
           <CardContent className="pt-6">
-            <p className="text-center text-sm text-muted-foreground">⚠️ ¡Aviso importante! ⚠️</p>
-            <p className="text-center text-sm text-muted-foreground">
-              No uso Telegram. 🚫 Hay cuentas falsas intentando engañar 😡. Si encuentras alguna, denunciala. 🚨 ¡Cuidemos nuestra comunidad! ❤️
+            <p className="text-center text-lg text-red-800">⚠️ ¡Aviso importante! ⚠️</p>
+            <p className="text-center text-sm text-slate-600">
+              No uso Telegram. 🚫 Hay cuentas falsas intentando engañar 😡. Si encuentras alguna, denunciala. <br/> 🚨 ¡Cuidemos nuestra comunidad! ❤️
             </p>
           </CardContent>
         </Card>
