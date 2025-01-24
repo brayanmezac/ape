@@ -133,7 +133,7 @@ export default function FinancePage() {
             </CardHeader>
             <CardContent className="grid gap-4">
               <Button variant="outline" className="flex items-center justify-between bg-[#FFF4B2]" asChild>
-                <a href="/files/Calculadora_de_Inversion.xlsx" download>
+                <a href="./files/Calculadora_de_Inversion.xlsx" download>
                   <span>Calculadora de Inversión</span>
                   <Download className="h-4 w-4" />
                 </a>
@@ -146,7 +146,7 @@ export default function FinancePage() {
               </p>
               
               <Button variant="outline" className="flex items-center justify-between bg-[#FFDAB9]" asChild>
-                <a href="/files/Calculadora_Ahorro.xlsx" download>
+                <a href="./files/Calculadora_Ahorro.xlsx" download>
                   <span>Calculadora de Ahorro</span>
                   <Download className="h-4 w-4" />
                 </a>
@@ -159,7 +159,7 @@ export default function FinancePage() {
               </p>
               
               <Button variant="outline" className="flex items-center justify-between bg-[#FFC1C1]" asChild>
-                <a href="/files/Calculadora_tasas.xlsx" download>
+                <a href="./files/Calculadora_tasas.xlsx" download>
                   <span>Calculadora de crédito</span>
                   <Download className="h-4 w-4" />
                 </a>
