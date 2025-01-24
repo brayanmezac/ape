@@ -15,10 +15,6 @@ type CalculatorInfo = {
   link?: string;
 };
 
-type InfoCalculadoras = {
-  [key: string]: CalculatorInfo;
-};
-
 export default function FinancePage() {
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false)
   const [isContentModalOpen, setIsContentModalOpen] = useState(false)
