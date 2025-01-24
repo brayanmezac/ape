@@ -3,6 +3,7 @@ import React from 'react';
 import './globals.css'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
   title: 'ColMaya - Comunidad Financiera',
@@ -19,6 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
+      <Analytics/>
       <body>
         <Header />
         {children}
