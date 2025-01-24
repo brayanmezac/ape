@@ -5,7 +5,7 @@ import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 
 export const metadata: Metadata = {
-  title: 'APE - Comunidad Financiera',
+  title: 'ColMaya - Comunidad Financiera',
   description: 'El zumbido de unas finanzas sanas',
   icons: {
     icon: '/favicon.ico',

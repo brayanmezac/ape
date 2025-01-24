@@ -18,9 +18,9 @@ export default function Home() {
         </section>
         <section id="about" className="py-20 px-8 bg-white">
           <div className="container mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-8">Acerca de Ape</h2>
+            <h2 className="text-3xl font-bold mb-8">Acerca de ColMaya</h2>
             <p className="max-w-3xl mx-auto text-lg">
-              Ape nace para cerrar la brecha de la educación financiera en Colombia y 
+              ColMaya nace para cerrar la brecha de la educación financiera en Colombia y 
               Latinoamérica, proporcionando una aplicación accesible que combina 
               inteligencia artificial, simuladores y asistencia en vivo de expertos 
               financieros. Nuestra misión es ofrecer a niños, jóvenes y adultos las 

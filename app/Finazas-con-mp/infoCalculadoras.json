@@ -1,0 +1,18 @@
+{
+    "Calculadora de Inversión": {
+      "title": "¿Quieres saber cómo hacer crecer tu dinero a través de inversiones? 📈💰",
+      "text": "En este video te enseño a usar la calculadora en Excel que diseñé para ayudarte a proyectar tus ganancias y tomar decisiones inteligentes al invertir. 🧮✨\n\nCon esta herramienta podrás calcular rendimientos, plazos y cuánto podrías ganar dependiendo de tu inversión inicial y las tasas. 🔍💡 ¡Es práctica, fácil de usar y perfecta para empezar a planificar tu futuro financiero! 🚀 Si tienes dudas, déjalas en los comentarios, y estaré encantada de ayudarte. 😊",
+      "embedded": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/IBRPoL809aA?si=AZV8FH_ticwBmK9I\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+      "link":"https://www.youtube.com/embed/IBRPoL809aA?si=AZV8FH_ticwBmK9I"
+    },
+    "Calculadora de Tasas": {
+      "title": "¿Estás pensando en tomar un crédito y quieres asegurarte de que sea una decisión inteligente?",
+      "embedded": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/-ieCVZYe6u4?si=FbwIutbOqRYiiMyO\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+      "text": "🏦💡 En este video te enseño cómo usar la calculadora en Excel basada en las tasas de crédito. Va a ayudarte a tomar el control de tus finanzas y decidir cuándo puedes endeudarte y cuándo no. 🧮📊 Con esta herramienta podrás calcular intereses, cuánto pagarías según el monto, la tasa y el plazo. Lo más importante es revisar cuánto terminarías pagando en total, todo de manera sencilla y clara. 💰✨ ¡Evita sorpresas y toma decisiones informadas! 🚀 Si tienes preguntas, déjalas en los comentarios, y con gusto te ayudo. 😊"
+    },
+    "Calculadora de Ahorro": {
+      "title": "¿Quieres empezar a ahorrar de manera efectiva pero no sabes por dónde empezar? 💰✨",
+      "text": "En este video te enseño paso a paso cómo usar la calculadora en Excel que diseñé especialmente para ayudarte a organizar tus finanzas y encontrar esos ahorros escondidos que pueden marcar la diferencia. 🧮📊\n\nEs una herramienta sencilla y práctica que te ayudará a tomar el control de tus gastos y a construir el hábito del ahorro. 🚀 ¡No importa si eres principiante, aquí vamos juntos! 💡 Si tienes dudas, déjalas en los comentarios, y estaré feliz de ayudarte. 😊\n\nDescarga la calculadora aquí [agrega el enlace] y comienza a transformar tus finanzas desde hoy. 🔑✨",
+      "embedded": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/p_Idyet2b7g?si=_7vOkuMS7kVsfdhW\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+    }
+  }

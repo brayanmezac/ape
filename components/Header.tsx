@@ -17,8 +17,8 @@ export function Header() {
     <header className="bg-[#fe9800] p-4">
       <nav className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <Image src="/bee-logo.svg" alt="Ape Logo" width={24} height={24} className="mr-2" style={{ filter: 'brightness(0) invert(1)' }} />
-          <Link href="/" className="text-white text-2xl font-bold">Ape</Link>
+          <Image src="/bee-logo.svg" alt="ColMaya Logo" width={24} height={24} className="mr-2" style={{ filter: 'brightness(0) invert(1)' }} />
+          <Link href="/" className="text-white text-2xl font-bold">ColMaya</Link>
         </div>
         <div className="hidden md:flex space-x-4">
           <Link href="#tools" className="text-white hover:text-yellow-200">Herramientas</Link>

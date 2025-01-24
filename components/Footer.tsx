@@ -19,9 +19,9 @@ export function Footer() {
             <Linkedin size={24} />
           </Link>
         </div>
-        <p className="mb-2">elzumbidoquetegia@ape.com.co</p>
-        <p className="mb-4">www.ape.com</p>
-        <p>&copy; 2023 Ape. Todos los derechos reservados.</p>
+        <p className="mb-2">elzumbidoquetegia@ColMaya.com.co</p>
+        <p className="mb-4">www.ColMaya.com</p>
+        <p>&copy; 2023 ColMaya. Todos los derechos reservados.</p>
       </div>
     </footer>
   )
