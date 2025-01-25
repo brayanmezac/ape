@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 const tools = [
   { id: 'conversion', name: 'Conversión de Tasas' },
-  { id: 'amortization', name: 'Amortización de Crédito' }
+  //{ id: 'amortization', name: 'Amortización de Crédito' }
 ]
 
 export function ToolSelector() {
