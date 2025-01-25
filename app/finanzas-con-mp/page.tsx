@@ -159,7 +159,7 @@ export default function FinancePage() {
               </p>
               
               <Button variant="outline" className="flex items-center justify-between bg-[#FFC1C1]" asChild>
-                <a href="/xlsx/Calculadora_credito.xlsx" download>
+                <a href="/xlsx/Calculadora_tasas.xlsx" download>
                   <span>Calculadora de crédito</span>
                   <Download className="h-4 w-4" />
                 </a>
