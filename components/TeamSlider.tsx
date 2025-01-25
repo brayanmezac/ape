@@ -8,12 +8,12 @@ import { Card, CardContent } from "@/components/ui/card"
 
 const teamMembers = [
   {
-    name: 'Maria Paula Gonzalez Rojas',
+    name: 'Maria Paula',
     role: 'CEO',
     description: 'Líder visionaria con amplia experiencia en finanzas y tecnología.',
     image: '/Maria-paula.png'
   },
-  {
+  /* {
     name: 'Carlos Gómez',
     role: 'CTO',
     description: 'Experto en desarrollo de software y arquitectura de sistemas.',
@@ -30,7 +30,7 @@ const teamMembers = [
     role: 'COO',
     description: 'Especialista en optimización de procesos y gestión de operaciones.',
     image: '/placeholder.png'
-  }
+  } */
 ]
 
 export function TeamSlider() {
