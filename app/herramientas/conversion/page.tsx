@@ -4,7 +4,7 @@ import { InterestRateCalculator } from './components/InterestRateCalculator'
 
 export default function ConversionPage() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col md:px-8">
       <main className="flex-grow container mx-auto px-22 py-8 sm:px-2">
         <Breadcrumb items={[
           { label: 'Inicio', href: '/' },

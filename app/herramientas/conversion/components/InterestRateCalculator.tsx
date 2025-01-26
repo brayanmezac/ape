@@ -26,6 +26,16 @@ export function InterestRateCalculator() {
   );
   const [error, setError] = useState<string | null>(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [isCalculated, setIsCalculated] = useState(false);
+  const [isMonthlyCalculated, setIsMonthlyCalculated] = useState(true);
+  const [isAnnualCalculated, setIsAnnualCalculated] = useState(true);
+
+  const formatPeriodo = (periodo: string) => {
+    return periodo
+      .replace(/([a-z])([A-Z])/g, '$1 $2')
+      .toLowerCase()
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+  };
 
   const handleInputChange = (periodo: Periodo, value: string) => {
     const cleanedValue = value.replace(/[^0-9.]/g, '');
@@ -33,13 +43,22 @@ export function InterestRateCalculator() {
   };
 
   const calculateRates = () => {
-    const periodoBase = Object.keys(rates).find(periodo => rates[periodo as Periodo] !== '') as Periodo | undefined;
+    // Contar cuántas tasas no están vacías
+    const countValidRates = Object.values(rates).filter(rate => rate !== '').length;
 
-    if (!periodoBase) {
+    // Nueva validación para múltiples entradas
+    if (countValidRates > 1) {
+      setError('Por favor, envíe una sola tasa a la vez.');
+      return;
+    }
+
+    if (countValidRates === 0) {
       setError('Por favor, ingrese al menos una tasa.');
       return;
     }
-    
+
+    const periodoBase = Object.keys(rates).find(periodo => rates[periodo as Periodo] !== '') as Periodo;
+
     const valorBase = parseFloat(rates[periodoBase]) / 100;
 
     if (isNaN(valorBase) || valorBase <= 0) {
@@ -47,8 +66,7 @@ export function InterestRateCalculator() {
       return;
     }
 
-    setError(null); // Clear any existing errors
-
+    setError(null);
     const tasaEA = Math.pow((1 + valorBase), periodosAlAno[periodoBase]) - 1;
     
     const tasasCalculadas: Record<Periodo, string> = {} as Record<Periodo, string>;
@@ -58,27 +76,46 @@ export function InterestRateCalculator() {
     });
 
     setRates(tasasCalculadas);
+    setIsCalculated(true);
+
+    if (periodoBase === 'mensualVencido') {
+      setIsMonthlyCalculated(true);
+      setIsAnnualCalculated(false);
+    } else if (periodoBase === 'anualVencido') {
+      setIsAnnualCalculated(true);
+      setIsMonthlyCalculated(false);
+    } else {
+      setIsMonthlyCalculated(true);
+      setIsAnnualCalculated(true);
+    }
   };
 
   const clearRates = () => {
     setRates(Object.keys(periodosAlAno).reduce((acc, periodo) => ({ ...acc, [periodo]: '' }), {}) as Record<Periodo, string>);
     setError(null);
+    setIsCalculated(false);
   };
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {Object.keys(periodosAlAno).map((periodo) => (
           (periodo === 'mensualVencido' || periodo === 'anualVencido') && (
             <div key={periodo} className="space-y-2">
-              <Label htmlFor={periodo}>{periodo.charAt(0).toUpperCase() + periodo.slice(1)}</Label>
-              <Input
-                id={periodo}
-                type="text"
-                value={rates[periodo as Periodo]}
-                onChange={(e) => handleInputChange(periodo as Periodo, e.target.value)}
-                placeholder={`Tasa ${periodo}`}
-              />
+              <Label htmlFor={periodo}>{formatPeriodo(periodo)}</Label>
+              {!isCalculated ? (
+                <Input
+                  id={periodo}
+                  type="text"
+                  value={rates[periodo as Periodo]}
+                  onChange={(e) => handleInputChange(periodo as Periodo, e.target.value)}
+                  placeholder={`Tasa ${formatPeriodo(periodo)}`}
+                />
+              ) : (
+                <div className={`p-2 rounded border ${periodo === 'mensualVencido' && isAnnualCalculated ? 'bg-[#fe9800] text-white' : periodo === 'anualVencido' && isMonthlyCalculated ? 'bg-[#fe9800] text-white' : 'bg-gray-100'}`}>
+                  {formatPeriodo(periodo)}: {rates[periodo as Periodo]}%
+                </div>
+              )}
             </div>
           )
         ))}
@@ -90,7 +127,7 @@ export function InterestRateCalculator() {
         className="border rounded-lg p-2"
       >
         <CollapsibleTrigger className="flex w-full items-center justify-between p-2">
-          <span>otras conversiones</span>
+          <span>Otras conversiones</span>
           <ChevronDown className={`w-4 h-4 transition-transform ${showAdvanced ? 'transform rotate-180' : ''}`} />
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-4 pt-4">
@@ -98,14 +135,20 @@ export function InterestRateCalculator() {
             {Object.keys(periodosAlAno).map((periodo) => (
               (periodo !== 'mensualVencido' && periodo !== 'anualVencido') && (
                 <div key={periodo} className="space-y-2">
-                  <Label htmlFor={periodo}>{periodo.charAt(0).toUpperCase() + periodo.slice(1)}</Label>
-                  <Input
-                    id={periodo}
-                    type="text"
-                    value={rates[periodo as Periodo]}
-                    onChange={(e) => handleInputChange(periodo as Periodo, e.target.value)}
-                    placeholder={`Tasa ${periodo}`}
-                  />
+                  <Label htmlFor={periodo}>{formatPeriodo(periodo)}</Label>
+                  {!isCalculated ? (
+                    <Input
+                      id={periodo}
+                      type="text"
+                      value={rates[periodo as Periodo]}
+                      onChange={(e) => handleInputChange(periodo as Periodo, e.target.value)}
+                      placeholder={`Tasa ${formatPeriodo(periodo)}`}
+                    />
+                  ) : (
+                    <div className="p-2 rounded border bg-gray-100">
+                      {formatPeriodo(periodo)}: {rates[periodo as Periodo]}%
+                    </div>
+                  )}
                 </div>
               )
             ))}
@@ -120,19 +163,21 @@ export function InterestRateCalculator() {
       )}
 
       <div className="flex space-x-2">
-        <Button 
-          onClick={calculateRates} 
-          className="flex-grow bg-[#fe9800] hover:bg-yellow-600"
-        >
-          Calcular Tasas
-        </Button>
+        {!isCalculated && (
+          <Button 
+            onClick={calculateRates} 
+            className="flex-grow bg-[#fe9800] hover:bg-yellow-600"
+          >
+            Calcular Tasas
+          </Button>
+        )}
         <Button 
           onClick={clearRates} 
           variant="outline" 
           size="icon" 
-          className="text-[#fe9800] border-[#fe9800] hover:bg-[#fe9800]/10"
+          className={`border-[#fe9800] hover:bg-[#fe9800]/10 transition-all duration-300 ${isCalculated ? 'flex-grow bg-[#fe9800] hover:bg-yellow-600' : ''}`}
         >
-          <X className="h-5 w-5" />
+          <X className={`h-5 w-5 ${isCalculated ? 'text-white' : 'text-[#fe9800]'}`} />
         </Button>
       </div>
       
