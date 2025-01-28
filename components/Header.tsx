@@ -23,7 +23,7 @@ export function Header() {
         <div className="hidden md:flex space-x-4">
           <Link href="/herramientas" className="text-white hover:text-yellow-200">Herramientas</Link>
           <Link href="./#about" className="text-white hover:text-yellow-200">Acerca de</Link>
-          <Link href="/finanzas-con-mp" className="text-white hover:text-yellow-200">Contacto</Link>
+          <Link href="/finanzas-con-mp" className="text-white hover:text-yellow-200">Finanzas con mp</Link>
         </div>
         <Button className="md:hidden bg-white text-[#fe9800] hover:bg-yellow-100" onClick={toggleMenu}>
           {isMenuOpen ? <X /> : <Menu />}
@@ -33,7 +33,7 @@ export function Header() {
         <div className="md:hidden mt-4">
           <Link href="/herramientas" className="block text-white hover:text-yellow-200 py-2">Herramientas</Link>
           <Link href="./#about" className="block text-white hover:text-yellow-200 py-2">Acerca de</Link>
-          <Link href="/finanzas-con-mp" className="block text-white hover:text-yellow-200 py-2">Contacto</Link>
+          <Link href="/finanzas-con-mp" className="block text-white hover:text-yellow-200 py-2">Finanzas con mp</Link>
         </div>
       )}
     </header>
