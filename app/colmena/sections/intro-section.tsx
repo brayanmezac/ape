@@ -9,7 +9,7 @@ export function IntroSection() {
       <div className="relative z-10 container mx-auto px-4 py-12 md:py-20 bg-white text-center">
         <div className="items-center justify-items-center">
           {/* Text Content */}
-          <div className="space-y-6 max-w-6xl">
+          <div className="space-y-6 max-w-full md:max-w-6xl">
             <h1 className="text-[#25282b] text-4xl md:text-5xl font-serif leading-tight">
               ¡Hola, soy Maya de Finanzas con MP!
               <span className="inline-block ml-2">🐝</span>
@@ -54,7 +54,7 @@ export function IntroSection() {
             </p>
 
             {/* Social Media Links */}
-            <div className="flex gap-4 pt-6 justify-center">
+            <div className="flex flex-col gap-4 pt-6 justify-center md:flex-row">
               <a
                 href="#"
                 className="group flex items-center gap-2 bg-[#fdc435] text-[#25282b] px-4 py-2 rounded-full hover:bg-[#ff9500] transition-colors text-center"
