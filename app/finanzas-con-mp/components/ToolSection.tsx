@@ -50,19 +50,21 @@ export function ToolSection() {
             </CardContent>
           </Card>
         </div>
-        <div className="mt-10 text-center flex flex-col sm:flex-row justify-center items-center">
-          {/* <Button onClick={handlePrev} className="bg-[#fe9800] hover:bg-yellow-600 mb-4 sm:mb-0 sm:mr-4" aria-label="Previous tool">
-            <ArrowLeft />
-          </Button> */}
-          <Link href="/herramientas">
-            <Button className="bg-[#fe9800] hover:bg-yellow-600 mb-4 sm:mb-0 sm:mr-4" aria-label="View more tools">
-              Ver más herramientas
+        {tools.length > 1 && (
+          <div className="mt-8 text-center flex flex-col sm:flex-row justify-center items-center">
+            <Button onClick={handlePrev} className="bg-[#fe9800] hover:bg-yellow-600 mb-4 sm:mb-0 sm:mr-4" aria-label="Previous tool">
+              <ArrowLeft />
             </Button>
-          </Link>
-          {/* <Button onClick={handleNext} className="bg-[#fe9800] hover:bg-yellow-600" aria-label="Next tool">
-            <ArrowRight />
-          </Button> */}
-        </div>
+            <Link href="/herramientas">
+              <Button className="bg-[#fe9800] hover:bg-yellow-600 mb-4 sm:mb-0 sm:mr-4" aria-label="View more tools">
+                Ver más herramientas
+              </Button>
+            </Link>
+            <Button onClick={handleNext} className="bg-[#fe9800] hover:bg-yellow-600" aria-label="Next tool">
+              <ArrowRight />
+            </Button>
+          </div>
+        )}
       </div>
     </Card>
   )
