@@ -44,7 +44,7 @@ export function ToolSection() {
                 <Button 
                   className="w-full bg-[#fe9800] hover:bg-yellow-600"
                 >
-                  Seleccionar
+                  Seleccionar 
                 </Button>
               </Link>
             </CardContent>
