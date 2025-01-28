@@ -9,6 +9,7 @@ import Link from "next/link"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { useEffect, useState } from "react"
 import infoCalculadoras from './infoCalculadoras.json'
+import { ToolSection } from "./components/ToolSection";
 
 type CalculatorInfo = {
   title: string;
@@ -124,6 +125,8 @@ export default function FinancePage() {
           </div>
         </div>
 
+        <ToolSection/>
+        
         {/* Resources Section */}
         <div className="mt-12 grid w-full gap-6 md:grid-cols-2">
           <Card className="animate-fade-up animate-delay-700 bg-[#fff9e2]">
@@ -159,7 +162,7 @@ export default function FinancePage() {
               </p>
               
               <Button variant="outline" className="flex items-center justify-between bg-[#FFC1C1]" asChild>
-                <a href="/xlsx/Calculadora_tasas.xlsx" download>
+                <a href="/xlsx/Calculadora_de_Credito.xlsx" download>
                   <span>Calculadora de crédito</span>
                   <Download className="h-4 w-4" />
                 </a>

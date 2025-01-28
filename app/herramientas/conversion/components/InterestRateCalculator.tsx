@@ -72,7 +72,7 @@ export function InterestRateCalculator() {
     const tasasCalculadas: Record<Periodo, string> = {} as Record<Periodo, string>;
     Object.entries(periodosAlAno).forEach(([periodo, periodos]) => {
       const tasaCalculada = ((Math.pow((1 + tasaEA), (1 / periodos)) - 1) * 100);
-      tasasCalculadas[periodo as Periodo] = tasaCalculada.toFixed(3);
+      tasasCalculadas[periodo as Periodo] = tasaCalculada.toFixed(2);
     });
 
     setRates(tasasCalculadas);
@@ -120,7 +120,32 @@ export function InterestRateCalculator() {
           )
         ))}
       </div>
-
+      
+      <div className="flex space-x-2">
+        {!isCalculated && (
+          <Button 
+            onClick={calculateRates} 
+            className="flex-grow bg-[#fe9800] hover:bg-yellow-600"
+          >
+            Calcular Tasas
+          </Button>
+        )}
+        <Button 
+          onClick={clearRates} 
+          variant="outline" 
+          size="icon" 
+          className={`border-[#fe9800] hover:bg-[#fe9800]/10 transition-all duration-300 ${isCalculated ? 'flex-grow bg-[#fe9800] hover:bg-yellow-600' : ''}`}
+        >
+          <X className={`h-5 w-5 ${isCalculated ? 'text-white' : 'text-[#fe9800]'}`} />
+        </Button>
+      </div>
+      
+      {error && (
+        <div className="bg-red-100 rounded-lg py-3 px-4 text-base text-red-700 mb-2 transition-opacity duration-300 ease-in-out opacity-100 fade-up" role="alert">
+          {error}
+        </div>
+      )}
+      
       <Collapsible 
         open={showAdvanced} 
         onOpenChange={setShowAdvanced}
@@ -156,30 +181,6 @@ export function InterestRateCalculator() {
         </CollapsibleContent>
       </Collapsible>
 
-      {error && (
-        <div className="text-red-500 text-sm">
-          {error}
-        </div>
-      )}
-
-      <div className="flex space-x-2">
-        {!isCalculated && (
-          <Button 
-            onClick={calculateRates} 
-            className="flex-grow bg-[#fe9800] hover:bg-yellow-600"
-          >
-            Calcular Tasas
-          </Button>
-        )}
-        <Button 
-          onClick={clearRates} 
-          variant="outline" 
-          size="icon" 
-          className={`border-[#fe9800] hover:bg-[#fe9800]/10 transition-all duration-300 ${isCalculated ? 'flex-grow bg-[#fe9800] hover:bg-yellow-600' : ''}`}
-        >
-          <X className={`h-5 w-5 ${isCalculated ? 'text-white' : 'text-[#fe9800]'}`} />
-        </Button>
-      </div>
       
       <div className="mt-6 w-full flex flex-col items-center">
         <TasaReferencia />

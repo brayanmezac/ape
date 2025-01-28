@@ -58,11 +58,16 @@ const config: Config = {
   		},
 		animation: {
 			'fade-up': 'fadeUp 0.5s ease-out forwards',
+			'slide-in': 'slideIn 0.5s ease-out forwards',
 		},
 		keyframes: {
 			fadeUp: {
 			  '0%': { opacity: '0', transform: 'translateY(20px)' },
 			  '100%': { opacity: '1', transform: 'translateY(0)' },
+			},
+			slideIn: {
+			  '0%': { opacity: '0', transform: 'translateX(-100%)' },
+			  '100%': { opacity: '1', transform: 'translateX(0)' },
 			}
 		}
   	},
