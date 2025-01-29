@@ -19,10 +19,11 @@ export function ToolsSection() {
           <CalculatorButton title="Calculadora de Crédito" />
         </div>
 
-        <div className="bg-[#ffe657] px-8 py-4 mb-12 mx-auto max-w-2xl text-center shake-animation">
-          <h3 className="text-3xl font-bold">¡Recuerda! Sólo Hay 10 Cupos</h3>
-        </div>
-
+        <a href="https://forms.gle/EgKpWndNvsTHyLFp7">
+          <div className="bg-[#ffe657] px-8 py-4 mb-12 mx-auto max-w-2xl text-center shake-animation">
+            <h3 className="text-3xl font-bold">¡Recuerda! Sólo Hay 10 Cupos</h3>
+          </div>
+        </a>
         <div className="text-center text-[#25282b] mb-12 space-y-2">
           <p className="text-2xl">¡Haz clic en el enlace, asegura tu lugar y comienza</p>
           <p className="text-2xl">este camino hacia la libertad financiera.</p>
@@ -32,8 +33,9 @@ export function ToolsSection() {
         <div className="max-w-md mx-auto mb-8">
           <CountdownTimer targetDate={new Date("2025-01-31T20:00:00Z")} />
         </div>
-
-        <div className="bg-[#ffb20f] px-8 py-4 text-center text-2xl font-bold max-w-md mx-auto">¡QUEDAN 7 CUPOS!</div>
+        <a href="https://forms.gle/EgKpWndNvsTHyLFp7">
+          <div className="bg-[#ffb20f] px-8 py-4 text-center text-2xl font-bold max-w-md mx-auto">¡QUEDAN 7 CUPOS!</div>
+        </a>
       </div>
     </section>
   )

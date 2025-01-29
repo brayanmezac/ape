@@ -5,13 +5,13 @@ export function ProgramSection() {
     <section className="py-12 md:py-20 bg-gradient-to-b from-yellow-100 to-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <div className="bg-[#ffe657] px-6 sm:px-8 py-4 inline-block rounded-xl shadow-lg border border-orange-500 animate-[fadeIn_1s_ease-in-out]">
+          <a href="https://forms.gle/EgKpWndNvsTHyLFp7" className="bg-[#ffe657] px-6 sm:px-8 py-4 inline-block rounded-xl shadow-lg border border-orange-500 animate-[fadeIn_1s_ease-in-out]">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#25282b]">
               ¿Quieres transformar tus finanzas?
             </h2>
-          </div>
+          </a>
           <p className="text-[#25282b] mt-6 sm:mt-10 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
-            Te invito a ser parte de nuestras <span className="text-orange-600 font-semibold">colmenas</span>, un espacio diseñado para aprender juntos, 
+            Te invito a ser parte de nuestras <a href="https://forms.gle/EgKpWndNvsTHyLFp7" className="text-orange-600 font-semibold">colmenas</a>, un espacio diseñado para aprender juntos, 
             crecer en comunidad y tomar el control de tu futuro financiero. 
             <span className="text-green-600 font-semibold"> 17 horas únicas</span> de aprendizaje práctico que no te puedes perder.
           </p>
