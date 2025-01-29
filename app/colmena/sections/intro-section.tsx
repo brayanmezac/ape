@@ -54,13 +54,12 @@ export function IntroSection() {
               manera práctica sobre tips financieros, inversiones, créditos, presupuestos y mucho más.
             </p>
 
-            <p className="text-[#25282b] text-lg font-semibold text-[#ff9500]">
+            <p className="text-[#25282b] text-lg">
+            <span className="text-lg font-semibold text-[#ff9500]">
               Juntos no solo aprenderemos; aplicaremos lo que aprendemos. Tendrás acceso a información clave,
               resolveremos dudas y creceremos como equipo.
-            </p>
-
-            <p className="text-[#25282b] text-lg">
-              <em>Porque así como las abejas logran grandes cosas al trabajar juntas</em>, estoy segura de que tú y yo
+            </span>
+              <em> Porque así como las abejas logran grandes cosas al trabajar juntas</em>, estoy segura de que tú y yo
               podemos transformar nuestras finanzas en algo más grande de lo que imaginamos.
             </p>
 
