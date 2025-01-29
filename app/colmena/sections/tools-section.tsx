@@ -19,7 +19,7 @@ export function ToolsSection() {
           <CalculatorButton title="Calculadora de Crédito" />
         </div>
 
-        <div className="bg-[#ffe657] px-8 py-4 mb-12 mx-auto max-w-2xl text-center">
+        <div className="bg-[#ffe657] px-8 py-4 mb-12 mx-auto max-w-2xl text-center shake-animation">
           <h3 className="text-3xl font-bold">¡Recuerda! Sólo Hay 10 Cupos</h3>
         </div>
 
@@ -30,7 +30,7 @@ export function ToolsSection() {
         </div>
 
         <div className="max-w-md mx-auto mb-8">
-          <CountdownTimer targetDate={new Date("2025-02-10T20:00:00Z")} />
+          <CountdownTimer targetDate={new Date("2025-01-31T20:00:00Z")} />
         </div>
 
         <div className="bg-[#ffb20f] px-8 py-4 text-center text-2xl font-bold max-w-md mx-auto">¡QUEDAN 7 CUPOS!</div>

@@ -68,6 +68,19 @@
   }
 }
  
+/* CSS Global */
+.shake-animation {
+  animation: shake 1s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -77,3 +90,12 @@
   }
 }
 
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

@@ -1,20 +1,31 @@
-import { Youtube, Instagram, TwitterIcon as TikTok } from "lucide-react"
+import { FaYoutube, FaInstagram,  FaTiktok } from "react-icons/fa6";
 
+//import MayaImage from '/maya.png'; // Asegúrate de ajustar la ruta
+import Image from "next/image";
 export function IntroSection() {
   return (
-    <div className="min-h-screen bg-[#ffe100] relative overflow-hidden flex items-center justify-center">
+    <div className="">
       
-
+      
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 py-12 md:py-20 bg-white text-center">
+      <div className="relative z-10 container mx-auto px-4 py-12 md:py-20 bg-gradient-to-b from-white to-yellow-100 text-left ">
+        {/* Imagen de Maya */}
+        <div className="float-right -mt-12 md:-mt-20 -mr-4 ml-6 mb-6 w-[30%] min-w-[170px] max-w-[400px]">
+          <Image 
+            src="/maya.png" 
+            alt="Maya" 
+            width={500} 
+            height={500}
+            className="w-full h-auto"
+          />
+        </div>
         <div className="items-center justify-items-center">
           {/* Text Content */}
-          <div className="space-y-6 max-w-full md:max-w-6xl">
+          <div className="space-y-6 px-4 max-w-full md:max-w-6xl md:px-0">
             <h1 className="text-[#25282b] text-4xl md:text-5xl font-serif leading-tight">
               ¡Hola, soy Maya de Finanzas con MP!
               <span className="inline-block ml-2">🐝</span>
             </h1>
-
             <p className="text-[#25282b] text-lg">
               Tengo 34 años y más de 14 años de experiencia en el mundo financiero. A lo largo de este camino, me he
               dado cuenta de algo que me mueve profundamente: muchas personas en Latinoamérica no tienen acceso a una
@@ -56,29 +67,29 @@ export function IntroSection() {
             {/* Social Media Links */}
             <div className="flex flex-col gap-4 pt-6 justify-center md:flex-row">
               <a
-                href="#"
+                href="https://www.youtube.com/@FinanzasconMP"
                 className="group flex items-center gap-2 bg-[#fdc435] text-[#25282b] px-4 py-2 rounded-full hover:bg-[#ff9500] transition-colors text-center"
               >
                 <div className="bg-white p-1.5 rounded-full">
-                  <Youtube size={20} className="text-[#25282b]" />
+                  <FaYoutube size={20} className="text-[#25282b]" />
                 </div>
                 <span className="font-medium">YouTube!</span>
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/finanzasconmp"
                 className="group flex items-center gap-2 bg-[#fdc435] text-[#25282b] px-4 py-2 rounded-full hover:bg-[#ff9500] transition-colors text-center"
               >
                 <div className="bg-white p-1.5 rounded-full">
-                  <Instagram size={20} className="text-[#25282b]" />
+                  <FaInstagram size={20} className="text-[#25282b]" />
                 </div>
                 <span className="font-medium">Instagram</span>
               </a>
               <a
-                href="#"
+                href="https://www.tiktok.com/@finanzas.con.mp"
                 className="group flex items-center gap-2 bg-[#fdc435] text-[#25282b] px-4 py-2 rounded-full hover:bg-[#ff9500] transition-colors text-center"
               >
                 <div className="bg-white p-1.5 rounded-full">
-                  <TikTok size={20} className="text-[#25282b]" />
+                  <FaTiktok size={20} className="text-[#25282b]" />
                 </div>
                 <span className="font-medium">Tik Tok</span>
               </a>

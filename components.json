@@ -16,7 +16,8 @@
     "ui": "@/components/ui",
     "lib": "@/lib",
     "hooks": "@/hooks",
-    "temporal-data": "@/data"
+    "temporal-data": "@/data",
+    "public":"@public"
   },
   "iconLibrary": "lucide"
 }
