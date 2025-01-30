@@ -1,9 +1,8 @@
-"use client"
+'use client'
+import { useEffect, useState } from 'react';
 
-import { useEffect, useState } from "react"
-
-type CountdownTimerProps = {
-  targetDate: Date; // Ensure targetDate is of type Date
+interface CountdownTimerProps {
+  targetDate: Date;
 }
 
 export function CountdownTimer({ targetDate }: CountdownTimerProps) {
@@ -14,10 +13,9 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
     seconds: 0,
   });
 
-  // Verifica si la fecha es válida al inicio
-  const isValidDate = targetDate && targetDate > new Date();
-
   useEffect(() => {
+    const isValidDate = targetDate && targetDate > new Date();
+
     if (!isValidDate) {
       setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       return; // Salimos de useEffect si la fecha no es válida
@@ -45,6 +43,8 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
     return () => clearInterval(timer);
   }, [targetDate]);
 
+  const isValidDate = targetDate && targetDate > new Date();
+
   if (!isValidDate) {
     return <div>Fecha no válida</div>;
   }
@@ -66,4 +66,3 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
     </div>
   );
 }
-

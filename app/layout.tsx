@@ -3,7 +3,8 @@ import React from 'react';
 import './globals.css'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
-import { Analytics } from "@vercel/analytics/react"
+import { GoogleAnalytics } from '@next/third-parties/google'
+
 
 export const metadata: Metadata = {
   title: 'ColMaya - Comunidad Financiera',
@@ -20,11 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <Analytics/>
       <body>
         <Header />
           {children}
         <Footer />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || (() => { throw new Error('NEXT_PUBLIC_GA_ID is not defined') })()} />
       </body>
     </html>
   )
