@@ -34,7 +34,7 @@ export function ToolsSection() {
           <CountdownTimer targetDate={new Date("2025-01-31T20:00:00Z")} />
         </div>
         <a href="https://forms.gle/EgKpWndNvsTHyLFp7">
-          <div className="bg-[#ffb20f] px-8 py-4 text-center text-2xl font-bold max-w-md mx-auto">¡QUEDAN 0 CUPOS!</div>
+          <div className="bg-[#ffb20f] px-8 py-4 text-center text-2xl font-bold max-w-md mx-auto">¡QUEDAN 10 CUPOS!</div>
         </a>
       </div>
     </section>
