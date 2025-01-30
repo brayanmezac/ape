@@ -90,7 +90,7 @@ export function IntroSection() {
                 <div className="bg-white p-1.5 rounded-full">
                   <FaTiktok size={20} className="text-[#25282b]" />
                 </div>
-                <span className="font-medium">Tik Tok</span>
+                <span className="font-medium">TikTok</span>
               </a>
             </div>
           </div>
